@@ -2,22 +2,20 @@ import { MongoClient } from "mongodb";
 import { env } from "./enviroment.js";
 
 const uri = env.MONGODB_URI;
-
-const client = new MongoClient(uri, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-});
+let dbinstance = null;
 
 export const connectDB = async () => {
-	try {
-		await client.connect();
-		console.log("conect database is successfuly !!!");
-	} finally {
-		await client.close();
-	}
+	const client = new MongoClient(uri, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	});
+
+	await client.connect();
+
+	dbinstance = client.db(env.DATABASE_NAME);
 };
 
-const databases = async (client) => {
-	await client.db().databases();
-	console.log();
+export const getDb = async () => {
+	if (!dbinstance) throw new Error("XXXXXX");
+	return dbinstance;
 };

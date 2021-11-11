@@ -3,5 +3,7 @@ dotenv.config();
 
 export const env = {
 	MONGODB_URI: process.env.MONGODB_URI,
-	PORT: process.env.PORT,
+	APP_PORT: process.env.APP_PORT,
+	APP_HOST: process.env.APP_HOST,
+	DATABASE_NAME: process.env.DATABASE_NAME,
 };
